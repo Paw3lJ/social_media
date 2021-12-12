@@ -1,7 +1,14 @@
 <div class="container">
 <nav class="navbar navbar-expand-lg navbar-light ">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'index' %}">Portal Społecznościowy</a>
+    <a class="navbar-brand"
+       {% if user.is_authenticated %}
+            href="{% url 'post-list' %}"
+       {% else %}
+            href="{% url 'index' %}"
+       {% endif %}
+
+    ><i class="fas fa-comment"></i> Portal Społecznościowy</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
