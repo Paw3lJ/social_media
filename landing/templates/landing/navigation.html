@@ -30,7 +30,7 @@
     <div class=" nav-item dropdown">
           <a class="nav-ling dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-expanded="false"><i class="fas fa-user"></i></a>
           <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Profil</a></li>
+              <li><a class="dropdown-item" href="{% url 'profile' user.profile.pk %}">Profil</a></li>
               <li><a class="dropdown-item" href="{% url 'account_logout' %}">Wyloguj się</a></li>
           </ul>
       </div>
