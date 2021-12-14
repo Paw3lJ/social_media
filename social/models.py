@@ -23,6 +23,7 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True,blank=True)
     location = models.CharField(max_length=100,blank=True,null=True)
     picture = models.ImageField(upload_to='zamieszczane/zdjęcia_profilowe',default='zamieszczane/zdjęcia_profilowe/profi_img.png', blank = True)
+    followers = models.ManyToManyField(User, blank=True, related_name='followers')
 
     @receiver(post_save,sender = User)
     def create_user_profile(sender,instance,created,**kwargs):
