@@ -11,6 +11,7 @@ class Post(models.Model):
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, blank=True, related_name='likes')
     dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
+    img=models.ManyToManyField('Img',blank=True)
 
 class Comment(models.Model):
     comment = models.TextField()
@@ -37,7 +38,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True, null=True)
     birth_date = models.DateField(null=True,blank=True)
     location = models.CharField(max_length=100,blank=True,null=True)
-    picture = models.ImageField(upload_to='zamieszczane/zdjęcia_profilowe',default='zamieszczane/zdjęcia_profilowe/profi_img.png', blank = True)
+    picture = models.ImageField(upload_to='zamieszczane/zdjecia_profilowe',default='zamieszczane/zdjecia_profilowe/profi_img.png', blank = True)
     followers = models.ManyToManyField(User, blank=True, related_name='followers')
 
     @receiver(post_save,sender = User)
@@ -49,4 +50,6 @@ class Profile(models.Model):
     def save_user_profile(sender,instance,**kwargs):
         instance.profile.save()
 
+class Img(models.Model):
+    img = models.ImageField(upload_to='zamieszczane/zdj_posty', blank=True, null=True)
 

@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('bio', models.TextField(blank=True, max_length=500, null=True)),
                 ('birth_date', models.DateField(blank=True, null=True)),
                 ('location', models.CharField(blank=True, max_length=100, null=True)),
-                ('picture', models.ImageField(blank=True, default='zamieszczane/zdjęcia_profilowe/profi_img.png', upload_to='zamieszczane/zdjęcia_profilowe')),
+                ('picture', models.ImageField(blank=True, default='zamieszczane/zdjecia_profilowe/profi_img.png', upload_to='zamieszczane/zdjecia_profilowe')),
             ],
         ),
     ]

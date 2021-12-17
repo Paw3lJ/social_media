@@ -67,6 +67,15 @@
                 <p><a style="text-decoration: none" class="text-primary" href="{% url 'profile' post.author.profile.pk %}"
                 >@{{ post.author }} </a>{{ post.created_on }}</p>
                 <div class="position-relative">
+                    {% if post.img.count > 0 %}
+                        <div class="row">
+                            {% for image in post.img.all %}
+                                <div class="col-md-4 col-xs-12">
+                                    <img src="{{ image.img.url }}" class="post-image" style="max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 10px;"/>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <p>{{ post.body }}</p>
                     <a href="{% url 'post-detail' post.pk %}" class="stretched-link"></a>
                 </div>

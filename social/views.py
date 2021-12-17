@@ -3,7 +3,7 @@ from django.views import View
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import UserPassesTestMixin,LoginRequiredMixin
-from .models import Post, Comment, Profile
+from .models import Post, Comment, Profile, Img
 from .forms import PostForm, CommentForm
 from django .views.generic.edit import UpdateView, DeleteView
 from django.db.models import Q
@@ -25,13 +25,25 @@ class PostListView(LoginRequiredMixin,View):
         return render(request,'social/post_list.html',context)
 
     def post(self,request,*args,**kwargs):
-        posts=Post.objects.all().order_by('-created_on')
-        form = PostForm(request.POST)
+        logged_user = request.user
+        posts = Post.objects.filter(
+            author__profile__followers__in=[logged_user.id]
+        ).order_by('-created_on')
+        form = PostForm(request.POST, request.FILES)
+        files=request.FILES.getlist('img')
 
         if form.is_valid():
             new_post = form.save(commit=False)
             new_post.author = request.user
             new_post.save()
+
+            for f in files:
+                image = Img(img=f)
+                image.save()
+                new_post.img.add(image)
+
+            new_post.save()
+
             context = {
                 'post_list': posts,
                 'form': form,
